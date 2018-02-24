@@ -24,6 +24,7 @@ services:
       volumes:
         - ./www/:/www
 #        - ./app/php7.1/conf/php.ini-development:/usr/local/etc/php/php.ini
+#        - ./app/php7.1/conf/php-fpm.conf.refer:/usr/local/etc/php-fpm.conf
       working_dir: /www
       restart: always
 
