@@ -1,18 +1,16 @@
 FROM php:7.1-fpm
 MAINTAINER daocoder 327216245@qq.com
 
-# 替换国内镜像
-# COPY ./source.list /etc/apk/repositories
-
-# ADD php.ini    /usr/local/etc/php/php.ini
-# ADD php-fpm.conf    /usr/local/etc/php-fpm.conf
+# COPY php.ini    /usr/local/etc/php/php.ini
+# COPY php-fpm.conf    /usr/local/etc/php-fpm.conf
 
 # 时区配置
 ENV TIMEZONE Asia/Shanghai
-#RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
+# RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 RUN echo $TIMEZONE > /etc/timezone
 # RUN usermod -u 1000 www-data
 
+# 替换国内镜像
 COPY sources.list /etc/apt/sources.list
 
 RUN docker-php-ext-install mbstring opcache pdo pdo_mysql mysqli
@@ -35,7 +33,6 @@ RUN pecl install redis-3.1.6 \
     && docker-php-ext-enable redis
 
 # 添加memcached
-# RUN apt-get update && apt-get install -y libmemcached-dev zlib1g-dev \
 RUN apt-get install -y libmemcached-dev zlib1g-dev \
     && pecl install memcached-3.0.4 \
     && docker-php-ext-enable memcached
