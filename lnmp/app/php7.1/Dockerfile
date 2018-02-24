@@ -13,6 +13,8 @@ ENV TIMEZONE Asia/Shanghai
 RUN echo $TIMEZONE > /etc/timezone
 # RUN usermod -u 1000 www-data
 
+COPY sources.list /etc/apt/sources.list
+
 RUN docker-php-ext-install mbstring opcache pdo pdo_mysql mysqli
 # 添加扩展 gd zip 相关依赖必须手动安装
 RUN apt-get update && apt-get install -y \
@@ -33,7 +35,8 @@ RUN pecl install redis-3.1.6 \
     && docker-php-ext-enable redis
 
 # 添加memcached
-RUN apt-get update && apt-get install -y libmemcached-dev zlib1g-dev \
+# RUN apt-get update && apt-get install -y libmemcached-dev zlib1g-dev \
+RUN apt-get install -y libmemcached-dev zlib1g-dev \
     && pecl install memcached-3.0.4 \
     && docker-php-ext-enable memcached
 
@@ -41,4 +44,4 @@ RUN apt-get update && apt-get install -y libmemcached-dev zlib1g-dev \
 # RUN pecl install memcache-3.0.8 \
 #     && docker-php-ext-enable memcache
 # 
-WORKDIR /www
+# WORKDIR /www
