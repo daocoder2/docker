@@ -23,6 +23,7 @@ services:
 #        - "memcached"
       volumes:
         - /home/lnmp/www/:/www
+#        - ./app/php7.1/conf/php.ini-development:/usr/local/etc/php/php.ini
       working_dir: /www
       restart: always
 
