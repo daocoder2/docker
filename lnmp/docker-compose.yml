@@ -8,8 +8,8 @@ services:
 #      links:
 #        - "php"
       volumes:
-        - /home/lnmp/www/:/www
-        - /home/lnmp/app/nginx1.13/conf/:/etc/nginx/conf.d
+        - ./www/:/www
+        - ./app/nginx1.13/conf/:/etc/nginx/conf.d
       restart: always
 
   php7.1:
@@ -22,7 +22,7 @@ services:
 #        - "redis"
 #        - "memcached"
       volumes:
-        - /home/lnmp/www/:/www
+        - ./www/:/www
 #        - ./app/php7.1/conf/php.ini-development:/usr/local/etc/php/php.ini
       working_dir: /www
       restart: always
@@ -33,7 +33,7 @@ services:
       ports:
         - "3306:3306"
       volumes:
-        - /home/lnmp/data/mysql:/var/lib/mysql
+        - ./data/mysql:/var/lib/mysql
       environment:
         MYSQL_ROOT_PASSWORD: xyz*#ss134
       restart: always
@@ -44,7 +44,7 @@ services:
       ports:
         - "6379:6379"
       volumes:
-        - /home/lnmp/data/redis:/data
+        - ./data/redis:/data
       restart: always
 
   memcached1.5:
