@@ -37,7 +37,7 @@ RUN apt-get install -y libmemcached-dev zlib1g-dev \
     && pecl install memcached-3.0.4 \
     && docker-php-ext-enable memcached
 
-# # 添加memcache
+# 添加memcache
 # RUN pecl install memcache-3.0.8 \
 #     && docker-php-ext-enable memcache
 # 
