@@ -214,9 +214,9 @@ c、其它扩展
 
 ## 4、容器之间的通信
 
-**1、获取各个容器的ip地址**
+**1、获取各个容器的ip地址：两种方法**
 
-1、参考博文：[如何获取 docker 容器(container)的 ip 地址](http://blog.csdn.net/sannerlittle/article/details/77063800)
+a、参考博文：[如何获取 docker 容器(container)的 ip 地址](http://blog.csdn.net/sannerlittle/article/details/77063800)
 
 	[root@localhost conf]# docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
 	/php7.1 - 172.18.0.4
@@ -225,7 +225,7 @@ c、其它扩展
 	/memcached1.5 - 172.18.0.6
 	/nginx1.13 - 172.18.0.2
 
-2、装完容器后，利用iptables
+b、装完容器后，利用iptables
 
 	[root@localhost conf]# iptables -L --line-number
 	Chain DOCKER (2 references)
