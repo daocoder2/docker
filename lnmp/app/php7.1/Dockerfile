@@ -1,9 +1,6 @@
 FROM php:7.1-fpm
 MAINTAINER daocoder 327216245@qq.com
 
-# COPY php.ini    /usr/local/etc/php/php.ini
-# COPY php-fpm.conf    /usr/local/etc/php-fpm.conf
-
 # 时区配置
 ENV TIMEZONE Asia/Shanghai
 # RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
