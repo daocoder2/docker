@@ -5,6 +5,7 @@ services:
       container_name: nginx1.13
       ports:
         - "80:80"
+        - "2334:2334"
 #      links:
 #        - "php"
       volumes:
