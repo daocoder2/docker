@@ -334,6 +334,10 @@ b、装完容器后，利用iptables
         fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include        fastcgi_params;
     }
+    
+**3、mysql容器启动报错**
+
+卷印射目录即`/data/mysql/`，这个目录是一个空目录。
 
 建议：
 
