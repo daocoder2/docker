@@ -24,3 +24,5 @@ pm.max_spare_servers = 3
 request_terminate_timeout = 900
 request_slowlog_timeout = 300
 slowlog = var/log/slow.log
+
+include=etc/php-fpm.d/*.conf
