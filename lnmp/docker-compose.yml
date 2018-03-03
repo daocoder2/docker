@@ -38,7 +38,9 @@ services:
       volumes:
         - ./data/mysql:/var/lib/mysql
       environment:
-        MYSQL_ROOT_PASSWORD: xyz*#ss134
+        MYSQL_ROOT_PASSWORD: 123456
+        MYSQL_USER: "test"
+        MYSQL_PASSWORD: "test123"
       restart: always
 
   redis3.2:
