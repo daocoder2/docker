@@ -118,7 +118,27 @@
 	# PHP only, required if PHP was built with --enable-force-cgi-redirect
 	fastcgi_param  REDIRECT_STATUS    200;
 
-虚拟主机等配置这里暂不介绍。
+虚拟主机等配置见docker-composer.yml。
+
+这里说明一些东西：
+
+Nginx 调用 fpm 服务是通过 fastcgi 参数进行的。如通过 SCRIPT_FILENAME 参数指定要加载的文件路径。
+ 
+- fastcgi_pass：指定 fpm 服务的调用地址，即nginx设置的反向代理地址，只需要把容器中的9000端口映射到宿主机的9000端口上就可以了。
+- fastcgi_index：默认文件。
+- fastcgi_param：每一个 fastcgi_param 指令都定义了一个会发送给 cgi 进程的参数，打开 Nginx 配置目录中的 fastcgi_params 文件可以看到里面定义了很多参数。其中，`SCRIPT_FILENAME` 对我们来说算是最重要的。 
+
+>`SCRIPT_FILENAME` 指令指定了 cgi 进程需要加载的文件路径。例如用户访问 http://xxx.com/a.php，Nginx 中将会处理此次请求。Nginx 判断后缀名是 .php 的请求后将会把此次请求转发给 cgi 进程处理，即 fastcgi_pass；转发的过程中会携带一些和访问相关的参数或其它预设的参数（fastcgi_param），然而这个 cgi 进程（PHP FPM）并不知道要加载的文件在哪里，这便是 SCRIPT_FILENAME 的作用了。
+ 
+>简单的说，配置 SCRIPT_FILENAME 的值就是要做到 FPM 进程能找到这个文件就可以了。例如代码目录存放在宿主机的 /home/www 目录下，我们使用 -v 命令启动 docker 时把代码目录映射到了容器内部的 /var/www/html 目录下：
+ 
+>$ docker run -d -p 9000:9000 -v /home/www:/var/www/html php:7.0-fpm
+ 因为 fpm 进程是运行在容器里面的，所以 SCRIPT_FILENAME 查找的路径一定是在容器内能找到的，即：
+ 
+>fastcgi_param  SCRIPT_FILENAME  /var/www/html/$fastcgi_script_name;
+至此应该全明白了吧，Nginx 配置中的 SCRIPT_FILENAME 要和容器中保持一致才行。当然也可以让容器中的目录结构保持与宿主机中一致，即 -v /home/www:/home/www，这样配置的时候可能会方便一些，不会出现因目录不一致而出错的机率。
+ 
+ 
 
 ### 3.2 php的扩展的配置
 
